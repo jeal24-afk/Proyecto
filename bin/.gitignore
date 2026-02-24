@@ -1,5 +1,7 @@
+/components/
 /img/
+/lib/
 /main/
 /views/
-/components/
-/lib/
+/formularioprovedor.class
+/util/
