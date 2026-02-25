@@ -12,12 +12,12 @@ public class LoginWindow extends JFrame {
 	
 	public LoginWindow() {
 		
-		setSize(400, 400);
+		setSize(1000, 1000);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//setLocation(100,100);
 		//setBounds(100,100,500,500);
 		setResizable(true);
-		setTitle("Mi Aplicación V2.0");
+		setTitle("Tienda Kong");
 		setLocationRelativeTo(null);
 		
 		Toolkit tk = Toolkit.getDefaultToolkit();

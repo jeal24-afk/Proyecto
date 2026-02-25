@@ -1,5 +1,6 @@
 package views;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
@@ -23,7 +24,7 @@ public class LoginView extends JPanel{
 	public LoginView() {
 		
 		fuente = new Font("Arial", Font.PLAIN, 14);
-		setLayout(null);
+		setLayout(new BorderLayout());
 		
 		inicializarComponentes();
 	}
@@ -36,60 +37,57 @@ public class LoginView extends JPanel{
 	
 	private void crearBotones() {
 		
-		RoundButton boton = new RoundButton("Login");
-		boton.setBounds(250,320,150,30);
+		JButton boton = new JButton("Login");
+		boton.setBounds(400,700,150,30);
 		boton.setBackground(Color.GREEN);
 		boton.setToolTipText("Haz click aquí");
 		boton.setFont(fuente);
 				
-		add(boton);
+		add(boton,BorderLayout.CENTER);
 		
 	}
 	
 	private void crearLogo() {
 		JLabel lblLogo = new JLabel();
-		lblLogo.setBounds(145, 50, 100, 100);
+		lblLogo.setBounds(400, 50, 100, 100);
 		lblLogo.setIcon(cargarIcono("../img/icono.png", 100, 100));
-		add(lblLogo);
+		add(lblLogo,BorderLayout.CENTER);
 	}
 	
 	private void crearFormulario() {
-		JLabel lblSaludo = new JLabel("Bienvenido!");
-		lblSaludo.setFont(fuente);
-		lblSaludo.setBounds(10,0,200,40);
-		add(lblSaludo);
+
 		
-		int lblX = 10, y = 170, txtX = 150;
+		int lblX = 200, y = 200, txtX = 300;
 		
 		JLabel lblEmail = new JLabel("Email: ");
 		lblEmail.setFont(fuente);
 		lblEmail.setBounds(lblX,y,200,40);
-		add(lblEmail);
+		add(lblEmail,BorderLayout.CENTER);
 		
 		JTextField txtEmail = new JTextField();
 		TextPrompt promptEmail = new TextPrompt("Ingresa tu usuario", txtEmail);
 		txtEmail.setFont(fuente);
 		txtEmail.setBounds(txtX,y,200,40);
-		add(txtEmail);
+		add(txtEmail,BorderLayout.CENTER);
 		
 		JLabel lblEmailRequerido = new JLabel("El email es requerido.");
 		lblEmailRequerido.setBounds(txtX, y+35, 200, 30);
 		lblEmailRequerido.setFont(new Font("Arial", Font.BOLD, 10));
 		lblEmailRequerido.setForeground(Color.RED);
-		add(lblEmailRequerido);
+		add(lblEmailRequerido,BorderLayout.CENTER);
 		
 		y += 70;
 		
 		JLabel lblContrasena = new JLabel("Contraseña: ");
 		lblContrasena.setFont(fuente);
 		lblContrasena.setBounds(lblX,y,200,40);
-		add(lblContrasena);
+		add(lblContrasena,BorderLayout.CENTER);
 		
 		JPasswordField contrasena = new JPasswordField();
 		TextPrompt promptContrasena = new TextPrompt("Ingresa tu contraseña", contrasena);
 		contrasena.setFont(fuente);
 		contrasena.setBounds(txtX,y,200,40);
-		add(contrasena);
+		add(contrasena,BorderLayout.CENTER);
 	}
 	
 	private ImageIcon cargarIcono(String ruta, int w, int h) {
