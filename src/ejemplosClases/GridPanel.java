@@ -1,4 +1,4 @@
-package views;
+package ejemplosClases;
 
 import java.awt.GridLayout;
 

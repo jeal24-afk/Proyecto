@@ -1,18 +1,18 @@
 package main;
 
-import views.LoginWindow;
-
 import com.formdev.flatlaf.FlatLightLaf;
 
-import views.FormularioProvedor;
+import views.FormularioRegistro;
+import views.LoginWindow;
 public class Main {
 
 	public static void main(String[] args) {
 		
 		FlatLightLaf.setup();
+		
 		LoginWindow ventanita = new LoginWindow();
 		
-		//FormularioProvedor formulario = new FormularioProvedor();
+		FormularioRegistro formulario = new FormularioRegistro();
 
 	}
 	

@@ -1,4 +1,4 @@
-package views;
+package ejemplosClases;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
