@@ -31,8 +31,7 @@ public class FormularioRegistro extends JFrame {
 		Image icono = tk.getImage("src/img/icono.png");
 		setIconImage(icono);
 		inicializarComponentes();
-		setVisible(true);
-		
+		setVisible(true);	
 	}
 
 	public void inicializarComponentes() {
@@ -90,6 +89,7 @@ public class FormularioRegistro extends JFrame {
 		scroll.setHorizontalScrollBar(null);
 		
 		add(scroll);
+		
 	}
 	
 }

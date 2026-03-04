@@ -68,11 +68,10 @@ public class LoginView extends JPanel{
 	    panelFormulario.add(lblPassword);
 	    panelFormulario.add(txtPassword);
 	    panelFormulario.add(btnLogin);
-	    panelFormulario.add(btnRegistro);
-	    
+	    panelFormulario.add(btnRegistro);	    
 	    panelCentro.add(panelFormulario);
-
 	    add(panelCentro, BorderLayout.CENTER);
+	   
 	}
 	
 
@@ -96,6 +95,7 @@ public class LoginView extends JPanel{
 		}
 		
 		return null;
+		
 	}
 }
 
