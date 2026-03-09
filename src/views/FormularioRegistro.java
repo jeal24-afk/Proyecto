@@ -1,5 +1,6 @@
 package views;
-
+import javax.swing.event.DocumentListener;
+import javax.swing.event.DocumentEvent;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -90,6 +91,8 @@ public class FormularioRegistro extends JFrame {
 		lblErrorEmail = crearPanelError();
 		lblErrorTerms = crearPanelError();
 		lblErrorDescripcion = crearPanelError();
+		
+		asignacionDeListeners();
 
 		/* CREAR PANELES CON COMPONENTES */
 
@@ -180,18 +183,27 @@ public class FormularioRegistro extends JFrame {
 	
 
 	private void resetearErrorLabels() {
-		lblErrorNombre.setText("");
-		lblErrorEmail.setText("");
-		lblErrorTerms.setText("");
-		lblErrorDescripcion.setText("");
+		//lblErrorNombre.setText("");
+		//lblErrorEmail.setText("");
+		//lblErrorTerms.setText("");
+		//lblErrorDescripcion.setText("");
 	}
 		
 		private boolean validarNombre() {
+
 
 			if (txtNombre.getText().trim().isEmpty()) {
 				lblErrorNombre.setText("El nombre es obligatorio");
 				return false;
 			}
+			
+			if (txtNombre.getText().trim().length() <= 3) {
+				lblErrorNombre.setText("Minimo 4 caracteres");
+				return false;
+			}
+			
+			
+			lblErrorNombre.setText("");
 
 			return true;
 		}
@@ -208,7 +220,8 @@ public class FormularioRegistro extends JFrame {
 				lblErrorEmail.setText("Email inválido");
 				return false;
 			}
-
+			
+			lblErrorEmail.setText("");
 			return true;
 		}		
 		
@@ -228,12 +241,78 @@ public class FormularioRegistro extends JFrame {
 				lblErrorDescripcion.setText("Descripción mínima 10 caracteres");
 				return false;
 			}
-
+			lblErrorDescripcion.setText("");
 			return true;
 		}
 		
+		private void asignacionDeListeners(){
+			chkTerminos.addActionListener(e ->{
+				validarTerminos();
+				});
+			txtNombre.getDocument().addDocumentListener(new DocumentListener() {
 
-	
+				@Override
+				public void insertUpdate(DocumentEvent e) {
+					validarNombre();
+					
+				}
+
+				@Override
+				public void removeUpdate(DocumentEvent e) {
+					validarNombre();
+
+				}
+
+				@Override
+				public void changedUpdate(DocumentEvent e) {
+					validarNombre();
+					
+				}
+			});
+			
+			txtEmail.getDocument().addDocumentListener(new DocumentListener() {
+				
+				@Override
+				public void removeUpdate(DocumentEvent e) {
+					validarEmail();
+					
+				}
+				
+				@Override
+				public void insertUpdate(DocumentEvent e) {
+					validarEmail();
+					
+				}
+				
+				@Override
+				public void changedUpdate(DocumentEvent e) {
+					validarEmail();
+					
+				}
+			});
+			
+			txtDescripcion.getDocument().addDocumentListener(new DocumentListener() {
+				
+				@Override
+				public void removeUpdate(DocumentEvent e) {
+					validarDescripcion();
+					
+				}
+				
+				@Override
+				public void insertUpdate(DocumentEvent e) {
+					validarDescripcion();
+					
+				}
+				
+				@Override
+				public void changedUpdate(DocumentEvent e) {
+					validarDescripcion();
+					
+				}
+			});
+
+		}
 }
 	
 	

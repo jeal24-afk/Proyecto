@@ -12,8 +12,8 @@ public class Main {
 		FlatLightLaf.setup();
 		
 		//LoginWindow ventanita = new LoginWindow();
-		MainWindow gfgdfg = new MainWindow();
-		//FormularioRegistro formulario = new FormularioRegistro();
+		//MainWindow gfgdfg = new MainWindow();
+		FormularioRegistro formulario = new FormularioRegistro();
 
 	}
 
