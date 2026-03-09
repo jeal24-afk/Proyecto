@@ -4,6 +4,7 @@ import com.formdev.flatlaf.FlatLightLaf;
 
 import views.FormularioRegistro;
 import views.LoginWindow;
+import views.MainWindow;
 public class Main {
 
 	public static void main(String[] args) {
@@ -11,8 +12,8 @@ public class Main {
 		FlatLightLaf.setup();
 		
 		//LoginWindow ventanita = new LoginWindow();
-		
-		FormularioRegistro formulario = new FormularioRegistro();
+		MainWindow gfgdfg = new MainWindow();
+		//FormularioRegistro formulario = new FormularioRegistro();
 
 	}
 
