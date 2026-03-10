@@ -121,19 +121,30 @@ public class FormularioRegistro extends JFrame {
 
 		return label;
 	}
-	
+	//////////////////////////////////////////////////////////////
+	///
+	///
+	///
+	///
+	///
+	///
 	private JPanel crearPanelBoton() {
-
+		
+		
+		
+		
 		JPanel panel = new JPanel();
-
 		JButton btnValidar = new JButton("Validar");
 		btnValidar.addActionListener(e -> validarFormulario());
+		btnValidar.setBackground(Color.BLACK);
+		btnValidar.setForeground(Color.WHITE);
 
 		panel.add(btnValidar);
 
 		return panel;
+		
 	}
-	
+	//////////////////////////////////////////////////////////////
 	private JPanel crearCampo(String labelText, Component field, JLabel errorLabel) {
 
 		JPanel panel = new JPanel();

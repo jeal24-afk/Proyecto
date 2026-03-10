@@ -1,5 +1,8 @@
 package views;
-
+import java.awt.Cursor;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.JComponent;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -22,6 +25,7 @@ import javax.swing.SwingConstants;
 import components.RoundButton;
 import components.TextPrompt;
 
+
 public class LoginView extends JPanel{
 		
 	public LoginView() {
@@ -32,6 +36,7 @@ public class LoginView extends JPanel{
 	private void inicializarComponentes() {
 
 	    setLayout(new BorderLayout());
+	    
 
 	    JPanel franjaSuperior = new JPanel();
 	    franjaSuperior.setBackground(Color.RED);
@@ -57,9 +62,27 @@ public class LoginView extends JPanel{
 
 	    JLabel lblPassword = new JLabel("Contraseña:");
 	    JPasswordField txtPassword = new JPasswordField();
+	    
 
 	    JButton btnLogin = new JButton("Ingresar");
-	    JButton btnRegistro = new JButton("Registrarse");
+		JLabel lblRegister = new JLabel("¿No tienes cuenta? Regístrate aquí");
+		lblRegister.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		lblRegister.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				//handleRegistration();
+			}
+			
+			public void mouseEntered(MouseEvent e) {
+				lblRegister.setForeground(Color.GREEN);
+			}
+			
+			public void mouseExited(MouseEvent e) {
+				lblRegister.setForeground(Color.BLACK);
+			}
+		});
+		panelFormulario.add(lblRegister);
+		
+	    
 	    
 	    panelFormulario.add(lblNombre);
 	    panelFormulario.add(new JLabel(""));
@@ -68,7 +91,7 @@ public class LoginView extends JPanel{
 	    panelFormulario.add(lblPassword);
 	    panelFormulario.add(txtPassword);
 	    panelFormulario.add(btnLogin);
-	    panelFormulario.add(btnRegistro);	    
+	    //panelFormulario.add(btnRegistro);	    
 	    panelCentro.add(panelFormulario);
 	    add(panelCentro, BorderLayout.CENTER);
 	   

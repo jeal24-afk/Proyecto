@@ -1,11 +1,17 @@
 package views;
 
 import java.awt.event.KeyEvent;
-
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionAdapter;
+import java.awt.event.MouseMotionListener;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem; 
+import javax.swing.JPanel;
 
 public class MainWindow extends JFrame {
 public MainWindow() {
@@ -55,7 +61,39 @@ public MainWindow() {
 		
 		JMenuItem opcion2 = new JMenuItem("Opción 2");
 		otraOpcion.add(opcion2);
+		JPanel panel = new JPanel();
+		add(panel);
+		panel.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				if(e.getButton() == MouseEvent.BUTTON1 && e.isControlDown()) {
+					System.out.println("Clicks: " + e.getClickCount());
+					System.out.println("X: " + e.getX());
+					System.out.println("Y: " + e.getY());
+					//System.out.println(e.getPoint().x);
+					//System.out.println(e.getPoint().y);
+					System.out.println("Clic izquierdo");
+				}
+			}
+		});
+		
+		panel.addMouseMotionListener(new MouseMotionAdapter() {
+			public void mouseDragged(MouseEvent e) {
+				System.out.println("Arrastrando " + e.getX() + ", " + e.getY());
+			}
+		});
+	
 		
 	}
 	
+	public void mouseExisted (MouseEvent e ) {
+	
+	}
+	
+	public void mouseEntered(MouseEvent e) {
+		
+	}
+	public void mouseClicked(MouseEvent e) {
+		System.out.append("se hizo clic");
+		
+	}
 }
