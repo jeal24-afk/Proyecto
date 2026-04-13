@@ -12,11 +12,11 @@ public class LoginWindow extends JFrame {
 	
 	public LoginWindow() {
 		
-		setSize(1000, 1000);
+		setSize(800, 800);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//setLocation(100,100);
 		//setBounds(100,100,500,500);
-		setResizable(true);
+		setResizable(false);
 		setTitle("Tienda Kong");
 		setLocationRelativeTo(null);
 		
@@ -29,7 +29,7 @@ public class LoginWindow extends JFrame {
 				new Point(0,0), "Mi Cursor");
 		//setCursor(miCursor);
 		
-		LoginView panelito = new LoginView();
+		LoginView panelito = new LoginView(this);
 		//FlowPanel panelito = new FlowPanel();
 		//BorderPanel panelito = new BorderPanel();
 		//GridPanel panelito = new GridPanel();

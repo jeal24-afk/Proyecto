@@ -6,105 +6,225 @@ import javax.swing.JComponent;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
 
 import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
+import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
 
 import components.RoundButton;
 import components.TextPrompt;
+import exceptions.InvalidPasswordException;
+import exceptions.InvalidUserException;
+import lib.SpringUtilities;
 
 
 public class LoginView extends JPanel{
+	
+	LoginWindow window;
+	Font font;
+	JPanel fondo;
+	JPanel franjaSuperior;
+	JPanel franjaInferior;
+	JPanel panelCentro;
+	JLabel lblNombre;
+	JPanel panelFormulario ;
+	JLabel lblUsuario;
+	JTextField txtUsuario;
+	JLabel lblPassword;
+	JPasswordField txtPassword ;
+	JButton btnLogin;
+	JLabel lblRegister;
+	JLabel lblPasswordRequerido;
+	JLabel lblUsuarioRequerido;
+	
+	public LoginView(LoginWindow window) {
+		this.window = window;
+		font = new Font("Arial", Font.PLAIN, 14);
+		setLayout(new BorderLayout());
 		
-	public LoginView() {
-		crearLogo();
 		inicializarComponentes();
 	}
 	
 	private void inicializarComponentes() {
 
-	    setLayout(new BorderLayout());
-	    
+		fondo = new JPanel(new GridBagLayout());
+		fondo.setBackground(Color.WHITE);
+		add(fondo, BorderLayout.CENTER);
 
-	    JPanel franjaSuperior = new JPanel();
-	    franjaSuperior.setBackground(Color.RED);
-	    franjaSuperior.setPreferredSize(new Dimension(0, 25));
-	    add(franjaSuperior, BorderLayout.NORTH);
+		franjaSuperior = new JPanel();
+		franjaSuperior.setBackground(Color.RED);
+		franjaSuperior.setPreferredSize(new Dimension(0, 20));
+		add(franjaSuperior, BorderLayout.NORTH);
 
-	    JPanel franjaInferior = new JPanel();
-	    franjaInferior.setBackground(Color.RED);
-	    franjaInferior.setPreferredSize(new Dimension(0, 25));
-	    add(franjaInferior, BorderLayout.SOUTH);
+		franjaInferior = new JPanel();
+		franjaInferior.setBackground(Color.RED);
+		franjaInferior.setPreferredSize(new Dimension(0, 20));
+		add(franjaInferior, BorderLayout.SOUTH);
 
-	    JPanel panelCentro = new JPanel(new GridBagLayout());
-	    
-	    JLabel lblNombre = new JLabel("Tienda Kong");
-	    lblNombre.setFont(new Font("Arial", Font.BOLD, 22));
-	    lblNombre.setHorizontalAlignment(SwingConstants.CENTER);
-	    
-	    JPanel panelFormulario = new JPanel(new GridLayout(4, 2, 10, 10));
-	    panelFormulario.setPreferredSize(new Dimension(300, 120));
+		panelCentro = new JPanel();
+		panelCentro.setPreferredSize(new Dimension(300, 450));
+		panelCentro.setBackground(Color.RED);
+		panelCentro.setLayout(new BorderLayout());
 
-	    JLabel lblUsuario = new JLabel("Usuario:");
-	    JTextField txtUsuario = new JTextField();
+		fondo.add(panelCentro);
 
-	    JLabel lblPassword = new JLabel("Contraseña:");
-	    JPasswordField txtPassword = new JPasswordField();
-	    
+		crearLogo();
 
-	    JButton btnLogin = new JButton("Ingresar");
-		JLabel lblRegister = new JLabel("¿No tienes cuenta? Regístrate aquí");
-		lblRegister.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		lblRegister.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
-				//handleRegistration();
-			}
-			
-			public void mouseEntered(MouseEvent e) {
-				lblRegister.setForeground(Color.GREEN);
-			}
-			
-			public void mouseExited(MouseEvent e) {
-				lblRegister.setForeground(Color.BLACK);
-			}
-		});
-		panelFormulario.add(lblRegister);
 		
-	    
-	    
-	    panelFormulario.add(lblNombre);
-	    panelFormulario.add(new JLabel(""));
-	    panelFormulario.add(lblUsuario);
-	    panelFormulario.add(txtUsuario);
-	    panelFormulario.add(lblPassword);
-	    panelFormulario.add(txtPassword);
-	    panelFormulario.add(btnLogin);
-	    //panelFormulario.add(btnRegistro);	    
-	    panelCentro.add(panelFormulario);
-	    add(panelCentro, BorderLayout.CENTER);
-	   
+		JPanel formPanel = new JPanel();
+		formPanel.setOpaque(false);
+		formPanel.setLayout(new SpringLayout());
+		formPanel.setBorder(BorderFactory.createEmptyBorder(20,20,10,20));
+
+		
+		JLabel lblEmail = new JLabel("Usuario:");
+		lblEmail.setFont(font);
+		formPanel.add(lblEmail);
+
+		txtUsuario = new JTextField();
+		txtUsuario.setPreferredSize(new Dimension(140, 25));
+		txtUsuario.setMaximumSize(new Dimension(140, 25));
+		formPanel.add(txtUsuario);
+
+		formPanel.add(new JLabel());
+
+		lblUsuarioRequerido = new JLabel("");
+		lblUsuarioRequerido.setForeground(Color.WHITE);
+		formPanel.add(lblUsuarioRequerido);
+
+		JLabel lblPasswordLabel = new JLabel("Contraseña:");
+		lblPasswordLabel.setFont(font);
+		formPanel.add(lblPasswordLabel);
+
+		txtPassword = new JPasswordField();
+		txtPassword.setPreferredSize(new Dimension(140, 25));
+		txtPassword.setMaximumSize(new Dimension(140, 25));
+		formPanel.add(txtPassword);
+
+		formPanel.add(new JLabel());
+
+		lblPasswordRequerido = new JLabel("");
+		lblPasswordRequerido.setForeground(Color.WHITE);
+		formPanel.add(lblPasswordRequerido);
+
+		SpringUtilities.makeCompactGrid(formPanel, 4, 2, 5, 5, 10, 10);
+
+		panelCentro.add(formPanel, BorderLayout.CENTER);
+
+		crearBotones();
 	}
 	
+	private void crearBotones() {
 
+		JPanel buttonsPanel = new JPanel();
+		buttonsPanel.setLayout(new FlowLayout());
+		buttonsPanel.setOpaque(false);
+
+		btnLogin = new JButton("Boton login");
+		buttonsPanel.add(btnLogin);
+		btnLogin.addActionListener(e-> handleLogin());
+
+		JButton btnRegister = new JButton("Boton Registro");
+		buttonsPanel.add(btnRegister);
+		btnRegister.addActionListener(e-> handleRegistration());
+
+		panelCentro.add(buttonsPanel, BorderLayout.SOUTH);
+	}
+
+	private void handleLogin() {
+
+		try {
+			if(validarCredenciales(txtUsuario.getText(), String.valueOf(txtPassword.getPassword()))) {
+				JOptionPane.showMessageDialog(
+					this,
+	 				"Se inició la sesión", 
+	 				"Sesión iniciada", 
+	 				JOptionPane.INFORMATION_MESSAGE
+	 			);
+				
+				new MainWindow();
+				window.dispose();
+			}
+		}catch(InvalidUserException ex) {
+			showPasswordError("Credenciales Incorrectas");
+		}catch(InvalidPasswordException ex) {
+			showPasswordError("Credenciales Incorrectas");
+		}
+	}
+	
+	private void handleRegistration() {
+		new FormularioRegistro();
+		window.dispose();
+	}
+	
+	private void showEmailError(String message) {
+		lblUsuarioRequerido.setText(message);
+	}
+	
+	private void showPasswordError(String message) {
+		lblPasswordRequerido.setText(message);
+	}
+	
+	private void resetErrorMessages() {
+		lblUsuarioRequerido.setText("");
+		lblPasswordRequerido.setText("");
+	}
+	
+	private boolean validarCredenciales(String email, String password) 
+		throws InvalidUserException, InvalidPasswordException {
+		
+		resetErrorMessages();
+		
+		boolean valid = true;
+
+		if(email.trim().isEmpty()) {
+			showEmailError("Requerido");
+			valid = false;
+		}
+
+		if(password.trim().isEmpty()) {
+			showPasswordError("Requerido");
+			valid = false;
+		}
+		
+		if(!email.trim().isEmpty() && !email.trim().equals("jeal_24@uabcs.mx")) {
+			throw new InvalidUserException("El correo no coincide.");
+		}
+		
+		if(!password.trim().isEmpty() && !password.trim().equals("1234")) {
+			throw new InvalidPasswordException("La contraseña no coincide");
+		}
+
+		return valid;
+		
+	
+		}
+	
 	
 	private void crearLogo() {
+		JPanel panelLogo = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		panelLogo.setOpaque(false);
+
 		JLabel lblLogo = new JLabel();
-		lblLogo.setBounds(450, 110, 100, 100);
-		lblLogo.setIcon(cargarIcono("../img/icono.png", 100, 100));
-		lblLogo.setHorizontalAlignment(SwingConstants.CENTER);
-		add(lblLogo,BorderLayout.CENTER);
+		lblLogo.setIcon(cargarIcono("../img/icono.png", 80, 80));
+
+		panelLogo.add(lblLogo);
+		panelCentro.add(panelLogo, BorderLayout.NORTH);
 	}
 	
 	private ImageIcon cargarIcono(String ruta, int w, int h) {
@@ -118,16 +238,5 @@ public class LoginView extends JPanel{
 		}
 		
 		return null;
-		
 	}
 }
-
-
-
-
-
-
-
-
-
-
