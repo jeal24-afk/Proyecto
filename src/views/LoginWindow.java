@@ -9,7 +9,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 public class LoginWindow extends JFrame { 
-	
+	private LoginView loginView;
+
 	public LoginWindow() {
 		
 		setSize(800, 800);
@@ -29,13 +30,13 @@ public class LoginWindow extends JFrame {
 				new Point(0,0), "Mi Cursor");
 		//setCursor(miCursor);
 		
-		LoginView panelito = new LoginView(this);
+		LoginView LoginView = new LoginView(this);
 		//FlowPanel panelito = new FlowPanel();
 		//BorderPanel panelito = new BorderPanel();
 		//GridPanel panelito = new GridPanel();
 		//BoxPanel panelito = new BoxPanel();
 		//GridBagPanel panelito = new GridBagPanel();
-		add(panelito);
+		add(LoginView);
 		
 		setVisible(true);
 		//pack();
@@ -43,7 +44,9 @@ public class LoginWindow extends JFrame {
 		//validate();
 		//repaint();
 	}
-	
+	public LoginView getLoginView() {
+		return loginView;
+	}
 }
 
 

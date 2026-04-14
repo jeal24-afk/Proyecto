@@ -1,5 +1,8 @@
 package models;
 
+import java.awt.List;
+import java.util.ArrayList;
+
 public class User {
 	
 	private String name;
@@ -81,6 +84,11 @@ public class User {
 	
 	public String getPassword() {
 		return password;
+	}
+	
+	public String toCsv() {
+		return name + "," +
+				email + ",";
 	}
 	
 	

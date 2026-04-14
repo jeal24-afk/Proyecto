@@ -60,6 +60,129 @@ public class LoginView extends JPanel{
 		inicializarComponentes();
 	}
 	
+	
+	
+	public LoginWindow getWindow() {
+		return window;
+	}
+
+
+
+	public void setWindow(LoginWindow window) {
+		this.window = window;
+	}
+
+
+
+	public JLabel getLblNombre() {
+		return lblNombre;
+	}
+
+
+
+	public void setLblNombre(JLabel lblNombre) {
+		this.lblNombre = lblNombre;
+	}
+
+
+
+	public JLabel getLblUsuario() {
+		return lblUsuario;
+	}
+
+
+
+	public void setLblUsuario(JLabel lblUsuario) {
+		this.lblUsuario = lblUsuario;
+	}
+
+
+
+	public JTextField getTxtUsuario() {
+		return txtUsuario;
+	}
+
+
+
+	public void setTxtUsuario(JTextField txtUsuario) {
+		this.txtUsuario = txtUsuario;
+	}
+
+
+
+	public JLabel getLblPassword() {
+		return lblPassword;
+	}
+	
+
+
+	public void setLblPassword(JLabel lblPassword) {
+		this.lblPassword = lblPassword;
+	}
+
+
+
+	public JPasswordField getTxtPassword() {
+		return txtPassword;
+	}
+
+
+
+	public void setTxtPassword(JPasswordField txtPassword) {
+		this.txtPassword = txtPassword;
+	}
+
+
+
+	public JLabel getLblRegister() {
+		return lblRegister;
+	}
+
+
+
+	public void setLblRegister(JLabel lblRegister) {
+		this.lblRegister = lblRegister;
+	}
+
+
+
+	public JLabel getLblPasswordRequerido() {
+		return lblPasswordRequerido;
+	}
+
+
+
+	public void setLblPasswordRequerido(JLabel lblPasswordRequerido) {
+		this.lblPasswordRequerido = lblPasswordRequerido;
+	}
+
+
+
+	public JLabel getLblUsuarioRequerido() {
+		return lblUsuarioRequerido;
+	}
+
+
+
+	public void setLblUsuarioRequerido(JLabel lblUsuarioRequerido) {
+		this.lblUsuarioRequerido = lblUsuarioRequerido;
+	}
+
+	
+
+
+	public JButton getBtnLogin() {
+		return btnLogin;
+	}
+
+
+
+	public void setBtnLogin(JButton btnLogin) {
+		this.btnLogin = btnLogin;
+	}
+
+
+
 	private void inicializarComponentes() {
 
 		fondo = new JPanel(new GridBagLayout());
@@ -172,15 +295,15 @@ public class LoginView extends JPanel{
 		window.dispose();
 	}
 	
-	private void showEmailError(String message) {
+	public void showEmailError(String message) {
 		lblUsuarioRequerido.setText(message);
 	}
 	
-	private void showPasswordError(String message) {
+	public void showPasswordError(String message) {
 		lblPasswordRequerido.setText(message);
 	}
 	
-	private void resetErrorMessages() {
+	public void resetErrorMessages() {
 		lblUsuarioRequerido.setText("");
 		lblPasswordRequerido.setText("");
 	}
@@ -239,4 +362,7 @@ public class LoginView extends JPanel{
 		
 		return null;
 	}
+	
+
 }
+

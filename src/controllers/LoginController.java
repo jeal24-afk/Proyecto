@@ -42,15 +42,15 @@ public class LoginController {
 			}
 		};
 		
-		view.getEmailField().addKeyListener(enterListener);
-		view.getPasswordField().addKeyListener(enterListener);
+		view.getTxtUsuario().addKeyListener(enterListener);
+		view.getTxtPassword().addKeyListener(enterListener);
 	}
 
 	private void handleLogin() {
 
 		User user = new User(
-			view.getEmail(),
-			view.getPassword()
+			view.getTxtUsuario().getText(),
+			view.getTxtPassword().getText()
 		);
 		
 		try {
@@ -95,7 +95,7 @@ public class LoginController {
 	}
 	
 	private void handleRegistration() {
-		new RegistrationWindow();
+		new FormularioRegistro();
 		view.getWindow().dispose();
 	}
 
