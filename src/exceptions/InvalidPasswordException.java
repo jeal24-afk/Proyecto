@@ -1,9 +1,12 @@
 package exceptions;
 
-public class InvalidPasswordException extends Exception{
+public class InvalidPaswordException extends Exception {
 
-	public InvalidPasswordException(String message) {
-		super(message);
+	public InvalidPaswordException() {
+		 super("Caracteres Invalidos");
 	}
 	
+	public InvalidPaswordException(String message) {
+		 super(message);
+	}
 }

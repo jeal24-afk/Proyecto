@@ -27,15 +27,15 @@ import util.AppFont;
 public class FormularioRegistro extends JFrame {
 
 	
-	private JTextField txtNombre;
-	private JTextField txtEmail;
-	private JTextArea txtDescripcion;
-	private JCheckBox chkTerminos;
-
-	private JLabel lblErrorNombre;
-	private JLabel lblErrorEmail;
-	private JLabel lblErrorTerms;
-	private JLabel lblErrorDescripcion;
+	public JTextField txtNombre;
+	public JTextField txtEmail;
+	public JTextArea txtDescripcion;
+	public JCheckBox chkTerminos;
+	public JButton btnValidar;
+	public JLabel lblErrorNombre;
+	public JLabel lblErrorEmail;
+	public JLabel lblErrorTerms;
+	public JLabel lblErrorDescripcion;
 	
 	public FormularioRegistro() {
 
@@ -56,6 +56,57 @@ public class FormularioRegistro extends JFrame {
 		setVisible(true);	
 	}
 	
+	
+
+	public String getTxtNombre() {
+		return String.valueOf(txtNombre.getText());
+	}
+	public String getTxtEmail() {
+		return String.valueOf(txtEmail.getText());
+	}
+
+	public String getTxtDescripcion() {
+		return String.valueOf(txtDescripcion.getText());
+	}
+
+	
+
+	public JButton getBtnValidar() {
+		return btnValidar;
+	}
+
+
+
+	public JCheckBox getChkTerminos() {
+		return chkTerminos;
+	}
+
+
+
+	public JLabel getLblErrorNombre() {
+		return lblErrorNombre;
+	}
+
+
+
+	public JLabel getLblErrorEmail() {
+		return lblErrorEmail;
+	}
+
+
+
+	public JLabel getLblErrorTerms() {
+		return lblErrorTerms;
+	}
+
+
+
+	public JLabel getLblErrorDescripcion() {
+		return lblErrorDescripcion;
+	}
+
+
+
 	private JPanel crearPanelTitulo() {
 		
 		JPanel panel = new JPanel();
@@ -134,7 +185,7 @@ public class FormularioRegistro extends JFrame {
 		
 		
 		JPanel panel = new JPanel();
-		JButton btnValidar = new JButton("Validar");
+		btnValidar = new JButton("Registrarse");
 		btnValidar.addActionListener(e -> validarFormulario());
 		btnValidar.setBackground(Color.BLACK);
 		btnValidar.setForeground(Color.WHITE);

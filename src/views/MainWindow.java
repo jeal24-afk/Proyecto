@@ -7,13 +7,20 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.event.MouseMotionListener;
+
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
-import javax.swing.JMenuItem; 
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class MainWindow extends JFrame {
+	
+	public JMenuItem mItemExit;
+	public JButton btnUsers;
+	
 public MainWindow() {
 		
 		setSize(500,500);
@@ -63,27 +70,30 @@ public MainWindow() {
 		otraOpcion.add(opcion2);
 		JPanel panel = new JPanel();
 		add(panel);
+		
 		panel.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				if(e.getButton() == MouseEvent.BUTTON1 && e.isControlDown()) {
 					System.out.println("Clicks: " + e.getClickCount());
 					System.out.println("X: " + e.getX());
 					System.out.println("Y: " + e.getY());
-					//System.out.println(e.getPoint().x);
-					//System.out.println(e.getPoint().y);
+					System.out.println(e.getPoint().x);
+					System.out.println(e.getPoint().y);
 					System.out.println("Clic izquierdo");
 				}
 			}
 		});
 		
-		panel.addMouseMotionListener(new MouseMotionAdapter() {
-			public void mouseDragged(MouseEvent e) {
-				System.out.println("Arrastrando " + e.getX() + ", " + e.getY());
-			}
-		});
-	
-		
 	}
+	
+		public int confirmExit() {
+		    return JOptionPane.showConfirmDialog(
+		        this,
+		        "¿Seguro que deseas regresar? Se perderán todos los datos",
+		        "¿Seguro?",
+		        JOptionPane.YES_NO_OPTION
+		    );
+		}
 	
 	public void mouseExisted (MouseEvent e ) {
 	

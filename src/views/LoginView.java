@@ -48,6 +48,7 @@ public class LoginView extends JPanel{
 	JLabel lblPassword;
 	JPasswordField txtPassword ;
 	JButton btnLogin;
+	JButton btnRegister;
 	JLabel lblRegister;
 	JLabel lblPasswordRequerido;
 	JLabel lblUsuarioRequerido;
@@ -61,128 +62,72 @@ public class LoginView extends JPanel{
 	}
 	
 	
+	public String getEmail() {
+		return txtUsuario.getText();
+	}
+
+	public String getPassword() {
+		return String.valueOf(txtPassword.getPassword());
+	}
 	
 	public LoginWindow getWindow() {
 		return window;
 	}
-
-
-
-	public void setWindow(LoginWindow window) {
-		this.window = window;
-	}
-
-
-
 	public JLabel getLblNombre() {
 		return lblNombre;
 	}
-
-
-
-	public void setLblNombre(JLabel lblNombre) {
-		this.lblNombre = lblNombre;
-	}
-
-
-
 	public JLabel getLblUsuario() {
 		return lblUsuario;
 	}
-
-
-
-	public void setLblUsuario(JLabel lblUsuario) {
-		this.lblUsuario = lblUsuario;
-	}
-
-
-
 	public JTextField getTxtUsuario() {
 		return txtUsuario;
 	}
-
-
-
-	public void setTxtUsuario(JTextField txtUsuario) {
-		this.txtUsuario = txtUsuario;
-	}
-
-
-
 	public JLabel getLblPassword() {
 		return lblPassword;
 	}
-	
-
-
-	public void setLblPassword(JLabel lblPassword) {
-		this.lblPassword = lblPassword;
-	}
-
-
-
 	public JPasswordField getTxtPassword() {
 		return txtPassword;
 	}
-
-
-
-	public void setTxtPassword(JPasswordField txtPassword) {
-		this.txtPassword = txtPassword;
-	}
-
-
-
 	public JLabel getLblRegister() {
 		return lblRegister;
 	}
-
-
-
-	public void setLblRegister(JLabel lblRegister) {
-		this.lblRegister = lblRegister;
-	}
-
-
-
 	public JLabel getLblPasswordRequerido() {
 		return lblPasswordRequerido;
 	}
-
-
 
 	public void setLblPasswordRequerido(JLabel lblPasswordRequerido) {
 		this.lblPasswordRequerido = lblPasswordRequerido;
 	}
 
-
-
 	public JLabel getLblUsuarioRequerido() {
 		return lblUsuarioRequerido;
 	}
-
-
 
 	public void setLblUsuarioRequerido(JLabel lblUsuarioRequerido) {
 		this.lblUsuarioRequerido = lblUsuarioRequerido;
 	}
 
-	
-
-
 	public JButton getBtnLogin() {
 		return btnLogin;
 	}
 
-
-
-	public void setBtnLogin(JButton btnLogin) {
-		this.btnLogin = btnLogin;
+	public void showEmailError(String message) {
+		lblUsuarioRequerido.setText(message);
 	}
-
-
-
+	
+	public void showPasswordError(String message) {
+		lblPasswordRequerido.setText(message);
+	}
+	
+	public void resetErrorMessages() {
+		lblUsuarioRequerido.setText("");
+		lblPasswordRequerido.setText("");
+	}
+	
+	public JButton getBtnRegister() {
+	    return btnRegister;
+	}
+	
 	private void inicializarComponentes() {
 
 		fondo = new JPanel(new GridBagLayout());
@@ -225,7 +170,11 @@ public class LoginView extends JPanel{
 		formPanel.add(txtUsuario);
 
 		formPanel.add(new JLabel());
-
+		
+		lblRegister = new JLabel("Registrarse");
+		lblRegister.setForeground(Color.BLUE);
+		lblRegister.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		
 		lblUsuarioRequerido = new JLabel("");
 		lblUsuarioRequerido.setForeground(Color.WHITE);
 		formPanel.add(lblUsuarioRequerido);
@@ -258,86 +207,14 @@ public class LoginView extends JPanel{
 		buttonsPanel.setLayout(new FlowLayout());
 		buttonsPanel.setOpaque(false);
 
-		btnLogin = new JButton("Boton login");
+		btnLogin = new JButton("Login");
 		buttonsPanel.add(btnLogin);
-		btnLogin.addActionListener(e-> handleLogin());
 
-		JButton btnRegister = new JButton("Boton Registro");
+		btnRegister = new JButton("Registro");
 		buttonsPanel.add(btnRegister);
-		btnRegister.addActionListener(e-> handleRegistration());
-
+		
 		panelCentro.add(buttonsPanel, BorderLayout.SOUTH);
 	}
-
-	private void handleLogin() {
-
-		try {
-			if(validarCredenciales(txtUsuario.getText(), String.valueOf(txtPassword.getPassword()))) {
-				JOptionPane.showMessageDialog(
-					this,
-	 				"Se inició la sesión", 
-	 				"Sesión iniciada", 
-	 				JOptionPane.INFORMATION_MESSAGE
-	 			);
-				
-				new MainWindow();
-				window.dispose();
-			}
-		}catch(InvalidUserException ex) {
-			showPasswordError("Credenciales Incorrectas");
-		}catch(InvalidPasswordException ex) {
-			showPasswordError("Credenciales Incorrectas");
-		}
-	}
-	
-	private void handleRegistration() {
-		new FormularioRegistro();
-		window.dispose();
-	}
-	
-	public void showEmailError(String message) {
-		lblUsuarioRequerido.setText(message);
-	}
-	
-	public void showPasswordError(String message) {
-		lblPasswordRequerido.setText(message);
-	}
-	
-	public void resetErrorMessages() {
-		lblUsuarioRequerido.setText("");
-		lblPasswordRequerido.setText("");
-	}
-	
-	private boolean validarCredenciales(String email, String password) 
-		throws InvalidUserException, InvalidPasswordException {
-		
-		resetErrorMessages();
-		
-		boolean valid = true;
-
-		if(email.trim().isEmpty()) {
-			showEmailError("Requerido");
-			valid = false;
-		}
-
-		if(password.trim().isEmpty()) {
-			showPasswordError("Requerido");
-			valid = false;
-		}
-		
-		if(!email.trim().isEmpty() && !email.trim().equals("jeal_24@uabcs.mx")) {
-			throw new InvalidUserException("El correo no coincide.");
-		}
-		
-		if(!password.trim().isEmpty() && !password.trim().equals("1234")) {
-			throw new InvalidPasswordException("La contraseña no coincide");
-		}
-
-		return valid;
-		
-	
-		}
-	
 	
 	private void crearLogo() {
 		JPanel panelLogo = new JPanel(new FlowLayout(FlowLayout.CENTER));

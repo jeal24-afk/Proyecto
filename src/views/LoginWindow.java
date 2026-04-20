@@ -8,11 +8,13 @@ import java.awt.Toolkit;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
+import controllers.LoginController;
+
 public class LoginWindow extends JFrame { 
-	private LoginView loginView;
+	private LoginView view;
 
 	public LoginWindow() {
-		
+        view = new LoginView(this);
 		setSize(800, 800);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//setLocation(100,100);
@@ -30,13 +32,12 @@ public class LoginWindow extends JFrame {
 				new Point(0,0), "Mi Cursor");
 		//setCursor(miCursor);
 		
-		LoginView LoginView = new LoginView(this);
 		//FlowPanel panelito = new FlowPanel();
 		//BorderPanel panelito = new BorderPanel();
 		//GridPanel panelito = new GridPanel();
 		//BoxPanel panelito = new BoxPanel();
 		//GridBagPanel panelito = new GridBagPanel();
-		add(LoginView);
+		//add(LoginView);
 		
 		setVisible(true);
 		//pack();
@@ -45,7 +46,7 @@ public class LoginWindow extends JFrame {
 		//repaint();
 	}
 	public LoginView getLoginView() {
-		return loginView;
+		return view;
 	}
 }
 
