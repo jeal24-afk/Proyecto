@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 
 import exceptions.InvalidPasswordException;
 import exceptions.InvalidUserException;
+import models.LoginModel;
 import models.User;
 import views.LoginView;
 import views.MainWindow;
@@ -16,87 +17,53 @@ import views.FormularioRegistro;
 
 public class LoginController {
 
-	private LoginView view;
+    private LoginView view;
 
-	public LoginController(LoginView view) {
-		this.view = view;
-		registerListeners();
-	}
+    public LoginController(LoginView view) {
+        this.view = view;
+        init();
+    }
 
-	private void registerListeners() {
-		view.getLblRegister().addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
-				handleRegistration();
-			}
-		});
+    private void init() {
+    	view.getBtnRegister().addActionListener(e -> registro());
+        view.getBtnLogin().addActionListener(e -> login());
+        view.getLblRegister().addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+                registro();
+            }
+        });
+    }
 
-		view.getBtnLogin().addActionListener(e -> handleLogin());
+    private void login() {
 
-		KeyAdapter enterListener = new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent e) {
+        view.resetErrorMessages();
 
-				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-					handleLogin();
-				}
-			}
-		};
-		
-		view.getTxtUsuario().addKeyListener(enterListener);
-		view.getTxtPassword().addKeyListener(enterListener);
-	}
+        LoginModel model = new LoginModel(
+                view.getEmail(),
+                view.getPassword()
+        );
 
-	private void handleLogin() {
+        view.showEmailError(model.validarEmail());
+        view.showPasswordError(model.validarPassword());
 
-		User user = new User(
-			view.getTxtUsuario().getText(),
-			view.getTxtPassword().getText()
-		);
-		
-		try {
-			if (validateCredentials(user)) {
-				JOptionPane.showMessageDialog(view.getWindow(), "Se inició la sesión", "Sesión iniciada",
-						JOptionPane.INFORMATION_MESSAGE);
+        if (!model.camposValidos()) return;
 
-				new MainWindow();
-				view.getWindow().dispose();
-			}
-		} catch (InvalidUserException | InvalidPasswordException ex) {
-			view.showPasswordError("Credenciales Incorrectas");
-		} 
-	}
-	
-	private boolean validateCredentials(User user) 
-			throws InvalidUserException, InvalidPasswordException {
-		
-		view.resetErrorMessages();
-		
-		boolean valid = true;
-		
-		if(user.getEmail().trim().isEmpty()) {
-			view.showEmailError("El correo es obligatorio");
-			valid = false;
-		}
-				
-		if(user.getPassword().trim().isEmpty()) {
-			view.showPasswordError("La contraseña es obligatoria");
-			valid = false;
-		};
-		
-		if(!user.getEmail().trim().isEmpty() && !user.getEmail().trim().equals("b.lara@uabcs.mx")) {
-			throw new InvalidUserException("El correo no coincide.");
-		}
-		
-		if(!user.getPassword().trim().isEmpty() && !user.getPassword().trim().equals("1234")) {
-			throw new InvalidPasswordException("La contraseña no coincide");
-		}
-		
-		return valid;
-	}
-	
-	private void handleRegistration() {
-		new FormularioRegistro();
-		view.getWindow().dispose();
-	}
+        try {
+            if (model.validarCredenciales()) {
 
+                JOptionPane.showMessageDialog(view, "Sesión iniciada");
+
+                new MainWindow();
+                view.getWindow().dispose();
+            }
+
+        } catch (Exception ex) {
+            view.showPasswordError("Credenciales incorrectas");
+        }
+    }
+
+    private void registro() {
+        new FormularioRegistro();
+        view.getWindow().dispose();
+    }
 }
