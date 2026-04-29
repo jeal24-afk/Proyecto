@@ -24,18 +24,18 @@ public class LoginModel {
     }
 
     public boolean validarCredenciales() throws InvalidUserException, InvalidPasswordException {
-
-        if (!email.equals("jeal_24@uabcs.mx")) {
+    	
+        if (email.equals("")) {
             throw new InvalidUserException("Usuario incorrecto");
         }
 
-        if (!password.equals("1234")) {
+        if (password.equals("")) {
             throw new InvalidPasswordException("Contraseña incorrecta");
         }
 
         return true;
     }
-
+		
     public boolean camposValidos() {
         return validarEmail().isEmpty() && validarPassword().isEmpty();
     }

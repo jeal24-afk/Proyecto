@@ -24,357 +24,129 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import util.AppFont;
-public class FormularioRegistro extends JFrame {
-
+public class FormularioRegistro extends JFrame {   
 	
 	public JTextField txtNombre;
 	public JTextField txtEmail;
 	public JTextArea txtDescripcion;
 	public JCheckBox chkTerminos;
 	public JButton btnValidar;
+	
 	public JLabel lblErrorNombre;
 	public JLabel lblErrorEmail;
-	public JLabel lblErrorTerms;
 	public JLabel lblErrorDescripcion;
-	
-	public FormularioRegistro() {
+	public JLabel lblErrorTerms;
 
-		setSize(500, 500);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setResizable(false);
-		setTitle("Registro");
-		setLocationRelativeTo(null);
-		
-		Toolkit tk = Toolkit.getDefaultToolkit();
-		Image icono = tk.getImage("src/img/icono.png");
-		setIconImage(icono);
-		
-		add(crearPanelTitulo(), BorderLayout.NORTH);
-		add(crearPanelFormulario());
-		add(crearPanelBoton(), BorderLayout.SOUTH);
-		pack();
-		setVisible(true);	
-	}
-	
-	
+public FormularioRegistro() {
 
-	public String getTxtNombre() {
-		return String.valueOf(txtNombre.getText());
-	}
-	public String getTxtEmail() {
-		return String.valueOf(txtEmail.getText());
-	}
+    setTitle("Registro");
+    setSize(500, 500);
+    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    setLocationRelativeTo(null);
+    setLayout(new BorderLayout());
 
-	public String getTxtDescripcion() {
-		return String.valueOf(txtDescripcion.getText());
-	}
+    add(crearPanelTitulo(), BorderLayout.NORTH);
+    add(crearPanelFormulario(), BorderLayout.CENTER);
+    add(crearPanelBoton(), BorderLayout.SOUTH);
 
-	
-
-	public JButton getBtnValidar() {
-		return btnValidar;
-	}
-
-
-
-	public JCheckBox getChkTerminos() {
-		return chkTerminos;
-	}
-
-
-
-	public JLabel getLblErrorNombre() {
-		return lblErrorNombre;
-	}
-
-
-
-	public JLabel getLblErrorEmail() {
-		return lblErrorEmail;
-	}
-
-
-
-	public JLabel getLblErrorTerms() {
-		return lblErrorTerms;
-	}
-
-
-
-	public JLabel getLblErrorDescripcion() {
-		return lblErrorDescripcion;
-	}
-
-
+    setVisible(true);
+}
 
 	private JPanel crearPanelTitulo() {
-		
-		JPanel panel = new JPanel();
-
-		JLabel titulo = new JLabel("Registro de Provedor");
-		titulo.setFont(AppFont.title());
-
-		panel.add(titulo);
-
-		return panel;
+	    JPanel panel = new JPanel();
+	    JLabel titulo = new JLabel("Registro de Proveedor");
+	    titulo.setFont(AppFont.title());
+	    panel.add(titulo);
+	    return panel;
 	}
-	
+
 	private JScrollPane crearPanelFormulario() {
-		
-		JPanel panel = new JPanel();
-		JScrollPane scroll = new JScrollPane(panel);
-		scroll.setBorder(null);
-		scroll.setHorizontalScrollBar(null);
-		scroll.getVerticalScrollBar().setUnitIncrement(14);
-
-		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-		panel.setBorder(BorderFactory.createEmptyBorder(15, 20, 15, 20));
-
-		txtNombre = new JTextField();
-		txtEmail = new JTextField();
-
-		chkTerminos = new JCheckBox("Aceptar términos");
-		chkTerminos.setAlignmentX(Component.LEFT_ALIGNMENT);
-
-		txtDescripcion = new JTextArea(4, 20);
-
-		lblErrorNombre = crearPanelError();
-		lblErrorEmail = crearPanelError();
-		lblErrorTerms = crearPanelError();
-		lblErrorDescripcion = crearPanelError();
-		
-		asignacionDeListeners();
-
-		/* CREAR PANELES CON COMPONENTES */
-
-		// Nombre
-		panel.add(crearCampo("Nombre: ", txtNombre, lblErrorNombre));
-		// Email
-		panel.add(crearCampo("Email: ", txtEmail, lblErrorEmail));
-
-
-		panel.add(crearCampo("Descripción:", new JScrollPane(txtDescripcion), lblErrorDescripcion));
-		JPanel termsPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
-		termsPanel.add(chkTerminos);
-		termsPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-		panel.add(crearCampo("", termsPanel, lblErrorTerms));
-
-		return scroll;
+	
+	    JPanel panel = new JPanel();
+	    panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+	    panel.setBorder(BorderFactory.createEmptyBorder(15, 20, 15, 20));
+	
+	    txtNombre = new JTextField();
+	    txtEmail = new JTextField();
+	    txtDescripcion = new JTextArea(4, 20);
+	    chkTerminos = new JCheckBox("Aceptar términos");
+	
+	    lblErrorNombre = crearLabelError();
+	    lblErrorEmail = crearLabelError();
+	    lblErrorDescripcion = crearLabelError();
+	    lblErrorTerms = crearLabelError();
+	
+	    panel.add(crearCampo("Nombre:", txtNombre, lblErrorNombre));
+	    panel.add(crearCampo("Email:", txtEmail, lblErrorEmail));
+	    panel.add(crearCampo("Descripción:", new JScrollPane(txtDescripcion), lblErrorDescripcion));
+	    panel.add(crearCampo("", chkTerminos, lblErrorTerms));
+	
+	    return new JScrollPane(panel);
 	}
 	
-	private JLabel crearPanelError() {
-		JLabel label = new JLabel();
-		label.setFont(AppFont.small());
-		label.setForeground(Color.RED);
-		label.setHorizontalAlignment(SwingConstants.LEFT);
-		label.setMaximumSize(new Dimension(Integer.MAX_VALUE, label.getPreferredSize().height));
-
-		return label;
-	}
-	//////////////////////////////////////////////////////////////
-	///
-	///
-	///
-	///
-	///
-	///
 	private JPanel crearPanelBoton() {
-		
-		
-		
-		
-		JPanel panel = new JPanel();
-		btnValidar = new JButton("Registrarse");
-		btnValidar.addActionListener(e -> validarFormulario());
-		btnValidar.setBackground(Color.BLACK);
-		btnValidar.setForeground(Color.WHITE);
-
-		panel.add(btnValidar);
-
-		return panel;
-		
+	    JPanel panel = new JPanel();
+	    btnValidar = new JButton("Registrarse");
+	    panel.add(btnValidar);
+	    return panel;
 	}
-	//////////////////////////////////////////////////////////////
-	private JPanel crearCampo(String labelText, Component field, JLabel errorLabel) {
 
-		JPanel panel = new JPanel();
-		panel.setBorder(BorderFactory.createEmptyBorder(5, 0, 5, 0));
-		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-		panel.setAlignmentX(Component.CENTER_ALIGNMENT);
+	private JPanel crearCampo(String texto, Component campo, JLabel error) {
+	    JPanel panel = new JPanel();
+	    panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+	
+	    JLabel label = new JLabel(texto);
+	
+	    panel.add(label);
+	    panel.add(campo);
+	    panel.add(error);
+	
+	    return panel;
+	}
 
-		JLabel label = new JLabel(labelText);
-		label.setMaximumSize(new Dimension(Integer.MAX_VALUE, label.getPreferredSize().height));
-		label.setHorizontalAlignment(SwingConstants.LEFT);
-		label.setAlignmentX(Component.CENTER_ALIGNMENT);
+	private JLabel crearLabelError() {
+	    JLabel label = new JLabel();
+	    label.setForeground(Color.RED);
+	    return label;
+	}
 
-		errorLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-		panel.add(label);
-		panel.add(field);
-		panel.add(errorLabel);
-
-		return panel;
-
+	public String getNombre() { 
+		return txtNombre.getText(); 
+		}
+	public String getEmail() { 
+		return txtEmail.getText(); 
+		}
+	public String getDescripcion() { 
+		return txtDescripcion.getText(); 
+	}
+	public boolean isTerminosAceptados() { 
+		return chkTerminos.isSelected(); 
 	}
 	
-	private void validarFormulario() {
-		resetearErrorLabels();
-
-		boolean valid = true;
-
-		if (!validarNombre()) {
-			valid = false;
-		}
-
-		if (!validarEmail()) {
-			valid = false;
-		}
-        
-        if(!validarTerminos()) 
-        	valid = false;
-        
-        if(!validarDescripcion()) 
-        	valid = false;     
-
-		if (valid) {
-			JOptionPane.showMessageDialog(this, "Registro exitoso");
-		}
-		
+	public JButton getBtnValidar() { 
+		return btnValidar; 
 	}
 	
-
-	private void resetearErrorLabels() {
-		//lblErrorNombre.setText("");
-		//lblErrorEmail.setText("");
-		//lblErrorTerms.setText("");
-		//lblErrorDescripcion.setText("");
+	public void setErrorNombre(String msg) { 
+		lblErrorNombre.setText(msg); 
 	}
-		
-		private boolean validarNombre() {
-
-
-			if (txtNombre.getText().trim().isEmpty()) {
-				lblErrorNombre.setText("El nombre es obligatorio");
-				return false;
-			}
-			
-			if (txtNombre.getText().trim().length() <= 3) {
-				lblErrorNombre.setText("Minimo 4 caracteres");
-				return false;
-			}
-			
-			
-			lblErrorNombre.setText("");
-
-			return true;
+	public void setErrorEmail(String msg) { 
+		lblErrorEmail.setText(msg); 
+	}
+	public void setErrorDescripcion(String msg) { 
+		lblErrorDescripcion.setText(msg); 
 		}
-		
+	public void setErrorTerminos(String msg) { 
+		lblErrorTerms.setText(msg); 
+	}
+	public void mostrarMensaje(String msg) {
+	    JOptionPane.showMessageDialog(this, msg);
+	}
 
-		private boolean validarEmail() {
-
-			if (txtEmail.getText().trim().isEmpty()) {
-				lblErrorEmail.setText("El email es obligatorio");
-				return false;
-			}
-
-			if (!txtEmail.getText().contains("@")) {
-				lblErrorEmail.setText("Email inválido");
-				return false;
-			}
-			
-			lblErrorEmail.setText("");
-			return true;
-		}		
-		
-		private boolean validarTerminos() {
-
-			if (!chkTerminos.isSelected()) {
-				lblErrorTerms.setText("Debe aceptar los términos");
-				return false;
-			}
-
-			return true;
-		}
-		
-		private boolean validarDescripcion() {
-
-			if (txtDescripcion.getText().trim().length() < 10) {
-				lblErrorDescripcion.setText("Descripción mínima 10 caracteres");
-				return false;
-			}
-			lblErrorDescripcion.setText("");
-			return true;
-		}
-		
-		private void asignacionDeListeners(){
-			chkTerminos.addActionListener(e ->{
-				validarTerminos();
-				});
-			txtNombre.getDocument().addDocumentListener(new DocumentListener() {
-
-				@Override
-				public void insertUpdate(DocumentEvent e) {
-					validarNombre();
-					
-				}
-
-				@Override
-				public void removeUpdate(DocumentEvent e) {
-					validarNombre();
-
-				}
-
-				@Override
-				public void changedUpdate(DocumentEvent e) {
-					validarNombre();
-					
-				}
-			});
-			
-			txtEmail.getDocument().addDocumentListener(new DocumentListener() {
-				
-				@Override
-				public void removeUpdate(DocumentEvent e) {
-					validarEmail();
-					
-				}
-				
-				@Override
-				public void insertUpdate(DocumentEvent e) {
-					validarEmail();
-					
-				}
-				
-				@Override
-				public void changedUpdate(DocumentEvent e) {
-					validarEmail();
-					
-				}
-			});
-			
-			txtDescripcion.getDocument().addDocumentListener(new DocumentListener() {
-				
-				@Override
-				public void removeUpdate(DocumentEvent e) {
-					validarDescripcion();
-					
-				}
-				
-				@Override
-				public void insertUpdate(DocumentEvent e) {
-					validarDescripcion();
-					
-				}
-				
-				@Override
-				public void changedUpdate(DocumentEvent e) {
-					validarDescripcion();
-					
-				}
-			});
-
-		}
+public void limpiarFormulario() {
+    txtNombre.setText("");
+    txtEmail.setText("");
+    txtDescripcion.setText("");
+    chkTerminos.setSelected(false);
 }
-	
-	
+}

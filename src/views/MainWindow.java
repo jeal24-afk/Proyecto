@@ -1,5 +1,8 @@
 package views;
 
+import java.awt.BorderLayout;
+import java.awt.CardLayout;
+import java.awt.FlowLayout;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseAdapter;
@@ -10,27 +13,79 @@ import java.awt.event.MouseMotionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import controllers.UserController;
+
 public class MainWindow extends JFrame {
+	
+	public static final String HOME = "HOME";
+	public static final String USERS = "USERS";
 	
 	public JMenuItem mItemExit;
 	public JButton btnUsers;
 	
-public MainWindow() {
+    private JButton btnVerUsuarios;
+    private JButton btnLogout;
+	
+	public JButton btnHome;
+	public UsuariosView usersPanel;
+	
+	private CardLayout cardLayout;
+	private JPanel container;
+	
+	public MainWindow() {
+			
+			setSize(800,500);
+			setTitle("Mi aplicación");
+			setLocationRelativeTo(null);
+			setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			
+			setMenu();
+	
+			createNavbar();
+			createViews();
+			UsuariosView usuariosView = new UsuariosView();
+			add(usuariosView);
+			setVisible(true);
+			
+		}
+
+	public void createNavbar() {
+		JPanel navbar = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		
-		setSize(500,500);
-		setTitle("Mi aplicación");
-		setLocationRelativeTo(null);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		btnHome = new JButton("Inicio");
+		btnUsers = new JButton("Usuarios");
 		
-		setMenu();
-		setVisible(true);
+		navbar.add(btnHome);
+		navbar.add(btnUsers);
 		
+		add(navbar, BorderLayout.NORTH);
+	}
+
+	private void createViews() {
+		cardLayout = new CardLayout();
+		container = new JPanel(cardLayout);
+		
+		JPanel homePanel = new JPanel();
+		homePanel.add(new JLabel("Bienvenido al Sistema"));
+		
+		usersPanel = new UsuariosView();
+		
+		container.add(homePanel, HOME);
+		container.add(usersPanel, USERS);
+		
+		add(container, BorderLayout.CENTER);
+		
+	}
+
+	public void showView(String view) {
+		cardLayout.show(container, view);
 	}
 	
 	public void setMenu() {
@@ -71,19 +126,6 @@ public MainWindow() {
 		JPanel panel = new JPanel();
 		add(panel);
 		
-		panel.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
-				if(e.getButton() == MouseEvent.BUTTON1 && e.isControlDown()) {
-					System.out.println("Clicks: " + e.getClickCount());
-					System.out.println("X: " + e.getX());
-					System.out.println("Y: " + e.getY());
-					System.out.println(e.getPoint().x);
-					System.out.println(e.getPoint().y);
-					System.out.println("Clic izquierdo");
-				}
-			}
-		});
-		
 	}
 	
 		public int confirmExit() {
@@ -106,4 +148,6 @@ public MainWindow() {
 		System.out.append("se hizo clic");
 		
 	}
+	
+	
 }

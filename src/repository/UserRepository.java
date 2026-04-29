@@ -2,6 +2,7 @@ package repository;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
@@ -10,13 +11,20 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+
 import models.User;
 
 public class UserRepository {
 
-	private final String FILE = "users.csv";
-	
+	private final String FILE = "src/assets/users.json";
+	private final ObjectMapper mapper = 
+			new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
 	public void save(User user) throws IOException {
+		File file = new File(FILE);
+		
 		
 		try(BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(FILE, true), StandardCharsets.UTF_8))) {
 			writer.write(user.toCsv());
@@ -38,8 +46,24 @@ public class UserRepository {
 			}
 		}
 		
+		public void updateAll(List<User> users) throws IOException {
+		    mapper.writeValue(new File(FILE), users);
+		}
+		
 		return users;
 		
+	}
+	
+	public void delete(int index) throws IOException {
+		List<User> users = getUsers();
+		users.remove(index);
+		updateAll(users);
+	}
+	
+	public void update(int index, User updatedUser) throws IOException {
+		List<User> users = getUsers();
+		users.set(index, updatedUser);
+		updateAll(users);
 	}
 	
 	
