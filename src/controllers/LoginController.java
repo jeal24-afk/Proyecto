@@ -9,61 +9,98 @@ import javax.swing.JOptionPane;
 
 import exceptions.InvalidPasswordException;
 import exceptions.InvalidUserException;
-import models.LoginModel;
 import models.User;
 import views.LoginView;
 import views.MainWindow;
-import views.FormularioRegistro;
+import views.RegistrationWindow;
 
 public class LoginController {
 
-    private LoginView view;
+	private LoginView view;
 
-    public LoginController(LoginView view) {
-        this.view = view;
-        init();
-    }
+	public LoginController(LoginView view) {
+		this.view = view;
+		addListeners();
+	}
 
-    private void init() {
-    	view.getBtnRegister().addActionListener(e -> registro());
-        view.getBtnLogin().addActionListener(e -> login());
-        view.getLblRegister().addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent e) {
-                registro();
-            }
-        });
-    }
+	private boolean validateCredentials(User user)
+			throws InvalidUserException, InvalidPasswordException {
 
-    private void login() {
+		view.resetErrorMessages();
 
-        view.resetErrorMessages();
+		boolean valid = true;
 
-        LoginModel model = new LoginModel(
-                view.getEmail(),
-                view.getPassword()
-        );
+		if (user.getEmail().trim().isEmpty()) {
+			view.showEmailError("El correo es obligatorio");
+			valid = false;
+		}
 
-        view.showEmailError(model.validarEmail());
-        view.showPasswordError(model.validarPassword());
+		if (user.getPassword().trim().isEmpty()) {
+			view.showPasswordError("La contraseña es obligatoria");
+			valid = false;
+		}
+		;
 
-        if (!model.camposValidos()) return;
+		if (!user.getEmail().trim().isEmpty() && !user.getEmail().trim().equals("b.lara@uabcs.mx")) {
+			throw new InvalidUserException("El correo no coincide.");
+		}
 
-        try {
-            if (model.validarCredenciales()) {
+		if (!user.getPassword().trim().isEmpty() && !user.getPassword().trim().equals("1234")) {
+			throw new InvalidPasswordException("La contraseña no coincide");
+		}
 
-                JOptionPane.showMessageDialog(view, "Sesión iniciada");
+		return valid;
+	}
 
-                new MainWindow();
-                view.getWindow().dispose();
-            }
+	private void handleRegistration() {
+		new RegistrationController(new RegistrationWindow());
+		view.getWindow().dispose();
+	}
 
-        } catch (Exception ex) {
-            view.showPasswordError("Credenciales incorrectas");
-        }
-    }
+	private void handleLogin() {
+		
+		User user = new User(
+			view.getEmail(),
+			view.getPassword()
+		); 
+		
+		System.out.println(user.getName());
+		
+		try {
+			if (validateCredentials(user)) {
+				JOptionPane.showMessageDialog(view.getWindow(), "Se inició la sesión", "Sesión iniciada",
+						JOptionPane.INFORMATION_MESSAGE);
 
-    private void registro() {
-        new FormularioRegistro();
-        view.getWindow().dispose();
-    }
+				new HomeController(new MainWindow());
+				view.getWindow().dispose();
+			}
+		} catch (InvalidUserException | InvalidPasswordException ex) {
+			view.showPasswordError("Credenciales Incorrectas");
+		}
+	}
+	
+	private void addListeners() {
+				
+		KeyAdapter enterListener = new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				
+				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+					handleLogin();
+				}
+			}
+		};
+		
+		view.getPasswordField().addKeyListener(enterListener);
+		view.getEmailField().addKeyListener(enterListener);
+		
+		view.getBtnLogin().addActionListener(e-> handleLogin());
+		
+		view.getLblRegister().addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				handleRegistration();
+			}
+		});
+	}
+
 }

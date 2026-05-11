@@ -5,29 +5,32 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.io.File;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
+import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
 import tablemodels.UserTableModel;
 import util.AppFont;
+import util.Config;
 
-public class UsuariosView extends JPanel {
-	
+public class UsersView extends JPanel{
+
 	private JTable table;
 	private JButton btnEdit;
 	private JButton btnAdd;
 	private JButton btnDelete;
+	private JButton btnPdf;
 	
-	public UsuariosView() {
+	public UsersView() {
 		setLayout(new BorderLayout());
 		table = new JTable();
 		styleTable();
@@ -39,12 +42,15 @@ public class UsuariosView extends JPanel {
         btnAdd = new JButton("Agregar");
         btnEdit = new JButton("Editar");
         btnDelete = new JButton("Eliminar");
+        btnPdf = new JButton("Exportar a PDF");
 
         panelButtons.add(btnAdd);
         panelButtons.add(btnEdit);
         panelButtons.add(btnDelete);
+        panelButtons.add(btnPdf);
         
         add(panelButtons, BorderLayout.NORTH);
+
 	}
 	
 	public void styleTable() {
@@ -67,7 +73,7 @@ public class UsuariosView extends JPanel {
 		header.setPreferredSize(new Dimension(0, 40));
 		header.setReorderingAllowed(false);
 		
-	    table.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+		table.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
 
             @Override
             public Component getTableCellRendererComponent(
@@ -105,42 +111,74 @@ public class UsuariosView extends JPanel {
 					c.setFont(AppFont.normal());
 				}
 			
+				
 				return c;
 				
 			}
 			
 		});
-			
+		
+		
 	}
 	
-	
+	public File selectPdfFile() {
+		
+		String path = Config.get("users.export.pdf", System.getProperty("user.home"));
+		JFileChooser chooser = new JFileChooser(path);
+		
+		chooser.setSelectedFile(new File("reporte-usuarios.pdf"));
+		
+		chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+		chooser.setAcceptAllFileFilterUsed(false);
+		
+		FileNameExtensionFilter filter = new FileNameExtensionFilter("Documentos PDF",  "pdf");
+		chooser.addChoosableFileFilter(filter);
+		chooser.setFileFilter(filter);
+		
+		int option = chooser.showDialog(this, "Exportar PDF de usuarios");
+		
+		if(option != JFileChooser.APPROVE_OPTION) {
+			return null;
+		}
+		
+		
+		File file = chooser.getSelectedFile();
+		Config.set("users.export.pdf", file.getParent());
+		
+		if(!file.getName().toLowerCase().endsWith(".pdf")) {
+			file = new File(file.getAbsolutePath() + ".pdf");
+		}
+		
+		return file;
+	}
 	
 	public void setTableModel(UserTableModel model) {
-			table.setModel(model);
-			
-			if(table.getColumnCount() >= 1) {
-				table.getColumnModel().getColumn(0).setPreferredWidth(80);
-			}
-			
-			if(table.getColumnCount() >= 2) {
-				table.getColumnModel().getColumn(1).setPreferredWidth(200);
-			}
-			
-			if(table.getColumnCount() >= 3) {
-				table.getColumnModel().getColumn(2).setPreferredWidth(50);
-			}
-			
-			DefaultTableCellRenderer center = new DefaultTableCellRenderer();
-			center.setHorizontalAlignment(SwingConstants.CENTER);
-			
-			if(table.getColumnCount() >= 1) {
-				table.getColumnModel().getColumn(0).setCellRenderer(center);
-			}
-		}	
+		table.setModel(model);
+		
+		if(table.getColumnCount() >= 1) {
+			table.getColumnModel().getColumn(0).setPreferredWidth(80);
+		}
+		
+		if(table.getColumnCount() >= 2) {
+			table.getColumnModel().getColumn(1).setPreferredWidth(200);
+		}
+		
+		if(table.getColumnCount() >= 3) {
+			table.getColumnModel().getColumn(2).setPreferredWidth(50);
+		}
+		
+		DefaultTableCellRenderer center = new DefaultTableCellRenderer();
+		center.setHorizontalAlignment(SwingConstants.CENTER);
+		
+		if(table.getColumnCount() >= 1) {
+			table.getColumnModel().getColumn(0).setCellRenderer(center);
+		}
+	}
 	
 	public JTable getTable() {
 		return table;
 	}
+	
 	public JButton getBtnAdd() {
         return btnAdd;
     }
@@ -151,6 +189,10 @@ public class UsuariosView extends JPanel {
 
     public JButton getBtnDelete() {
         return btnDelete;
+    }
+    
+    public JButton getBtnPdf() {
+    	return btnPdf;
     }
 	
     public int getSelectedRow() {

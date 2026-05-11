@@ -34,7 +34,7 @@ public class MainWindow extends JFrame {
     private JButton btnLogout;
 	
 	public JButton btnHome;
-	public UsuariosView usersPanel;
+	public UsersView  usersPanel;
 	
 	private CardLayout cardLayout;
 	private JPanel container;
@@ -42,7 +42,7 @@ public class MainWindow extends JFrame {
 	public MainWindow() {
 			
 			setSize(800,500);
-			setTitle("Mi aplicación");
+			setTitle("Provedores");
 			setLocationRelativeTo(null);
 			setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			
@@ -50,7 +50,7 @@ public class MainWindow extends JFrame {
 	
 			createNavbar();
 			createViews();
-			UsuariosView usuariosView = new UsuariosView();
+			UsersView  usuariosView = new UsersView();
 			add(usuariosView);
 			setVisible(true);
 			
@@ -75,7 +75,7 @@ public class MainWindow extends JFrame {
 		JPanel homePanel = new JPanel();
 		homePanel.add(new JLabel("Bienvenido al Sistema"));
 		
-		usersPanel = new UsuariosView();
+		usersPanel = new UsersView();
 		
 		container.add(homePanel, HOME);
 		container.add(usersPanel, USERS);
@@ -89,64 +89,69 @@ public class MainWindow extends JFrame {
 	}
 	
 	public void setMenu() {
-		
+		mItemExit = new JMenuItem("Salir");
 		JMenuBar mb = new JMenuBar();
 		setJMenuBar(mb);
-		
+
 		JMenu archivo = new JMenu("Archivo");
 		archivo.setMnemonic(KeyEvent.VK_A);
 		mb.add(archivo);
-		
+
 		JMenuItem abrir = new JMenuItem("Abrir");
 		abrir.setMnemonic(KeyEvent.VK_B);
 		archivo.add(abrir);
-		
+
 		JMenuItem guardar = new JMenuItem("Guardar");
 		guardar.setMnemonic(KeyEvent.VK_G);
 		archivo.add(guardar);
-		
+
 		archivo.addSeparator();
-		
+
 		JMenuItem salir = new JMenuItem("Salir");
 		salir.setMnemonic(KeyEvent.VK_S);
 		archivo.add(salir);
-		
+
 		JMenu otraOpcion = new JMenu("Otra opción");
 		otraOpcion.setMnemonic(KeyEvent.VK_O);
 		mb.add(otraOpcion);
-		
+
 		JMenu opcion1 = new JMenu("Opción 1");
 		otraOpcion.add(opcion1);
-		
+
 		JMenuItem opcion3 = new JMenuItem("Opción 3");
 		opcion1.add(opcion3);
-		
+
 		JMenuItem opcion2 = new JMenuItem("Opción 2");
 		otraOpcion.add(opcion2);
 		JPanel panel = new JPanel();
 		add(panel);
-		
+
 	}
 	
-		public int confirmExit() {
-		    return JOptionPane.showConfirmDialog(
-		        this,
-		        "¿Seguro que deseas regresar? Se perderán todos los datos",
-		        "¿Seguro?",
-		        JOptionPane.YES_NO_OPTION
-		    );
-		}
-	
-	public void mouseExisted (MouseEvent e ) {
-	
+	public void setWindowSize(int width, int height) {
+		setSize(width, height);
 	}
-	
+
+	public void setWindowLocation(int x, int y) {
+		setLocation(x, y);
+	}
+
+	public int confirmExit() {
+		return JOptionPane.showConfirmDialog(this, "¿Seguro que deseas regresar? Se perderán todos los datos",
+				"¿Seguro?", JOptionPane.YES_NO_OPTION);
+	}
+
+	public void mouseExisted(MouseEvent e) {
+
+	}
+
 	public void mouseEntered(MouseEvent e) {
-		
+
 	}
+
 	public void mouseClicked(MouseEvent e) {
 		System.out.append("se hizo clic");
-		
+
 	}
 	
 	

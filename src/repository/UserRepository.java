@@ -19,39 +19,45 @@ import models.User;
 
 public class UserRepository {
 
-	private final String FILE = "src/assets/users.json";
+	private final String FILE = "."
+			+ File.separator 
+			+ "data"
+			+ File.separator
+			+ "users.json";
+	
 	private final ObjectMapper mapper = 
 			new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
+	
 	public void save(User user) throws IOException {
-		File file = new File(FILE);
 		
-		
-		try(BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(FILE, true), StandardCharsets.UTF_8))) {
-			writer.write(user.toCsv());
-			writer.newLine();
-		}
+		List<User> users = getUsers();
+		users.add(user);
+		updateAll(users);
 		
 	}
 	
 	public List<User> getUsers() throws IOException {
 		
-		List<User> users = new ArrayList<User>();
+		File file = new File(FILE);
 		
-		try (BufferedReader reader = new BufferedReader(new FileReader(FILE))) {
-			String line;
-			
-			while((line = reader.readLine()) != null) {
-				User user = User.fromCsv(line);
-				users.add(user);
-			}
+		file.getParentFile().mkdirs();
+		
+		if(!file.exists() || file.length() == 0) {
+			return new ArrayList<>();
 		}
 		
-		public void updateAll(List<User> users) throws IOException {
-		    mapper.writeValue(new File(FILE), users);
-		}
+		return mapper.readValue(
+			file, 
+			new TypeReference<List<User>>() {}
+		);
+				
+	}
+	
+	public void updateAll(List<User> users) throws IOException {
+		File file = new File(FILE);
+		file.getParentFile().mkdir();
 		
-		return users;
-		
+	    mapper.writeValue(file, users);
 	}
 	
 	public void delete(int index) throws IOException {
@@ -66,5 +72,5 @@ public class UserRepository {
 		updateAll(users);
 	}
 	
-	
+			
 }

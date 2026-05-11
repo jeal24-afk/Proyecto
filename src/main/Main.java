@@ -2,7 +2,7 @@ package main;
 
 import com.formdev.flatlaf.FlatLightLaf;
 
-import controllers.FormularioController;
+import controllers.RegistrationController;
 import controllers.HomeController;
 import controllers.LoginController;
 import views.FormularioRegistro;
@@ -22,7 +22,7 @@ public class Main {
 		new LoginController(view);
         ventanita.add(view);
         //
-		//new HomeController(new MainWindow());
+		new HomeController(new MainWindow());
 
         //FormularioRegistro view2 = new FormularioRegistro();
         //new FormularioController(view2); 

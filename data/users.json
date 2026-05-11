@@ -1,0 +1,56 @@
+[ {
+  "name" : "Grupo Bimbo",
+  "email" : "contacto@bimbo.com",
+  "description" : "1234",
+  "password" : null
+}, {
+  "name" : "FEMSA",
+  "email" : "contacto@femsa.com",
+  "description" : "1234",
+  "password" : null
+}, {
+  "name" : "Gruma",
+  "email" : "contacto@gruma.com",
+  "description" : "1234",
+  "password" : null
+}, {
+  "name" : "Grupo Lala",
+  "email" : "contacto@lala.com",
+  "description" : "1234",
+  "password" : null
+}, {
+  "name" : "La Costeña",
+  "email" : "contacto@lacostena.com",
+  "description" : "1234",
+  "password" : null
+}, {
+  "name" : "Arca Continental",
+  "email" : "contacto@arcacontal.com",
+  "description" : "1234",
+  "password" : null
+}, {
+  "name" : "Grupo Herdez",
+  "email" : "contacto@herdez.com",
+  "description" : "1234",
+  "password" : null
+}, {
+  "name" : "Sigma Alimentos",
+  "email" : "contacto@sigma.com",
+  "description" : "1234",
+  "password" : null
+}, {
+  "name" : "Maseca",
+  "email" : "contacto@maseca.com",
+  "description" : "1234",
+  "password" : null
+}, {
+  "name" : "Grupo Modelo",
+  "email" : "contacto@modelo.com",
+  "description" : "1234",
+  "password" : null
+}, {
+  "name" : "ASDASD",
+  "email" : "DAsdas@asd",
+  "description" : "asdasdasdasdasdasd",
+  "password" : null
+} ]
