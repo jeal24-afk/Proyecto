@@ -6,7 +6,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JOptionPane;
-
+import repository.LoginRepository;
 import exceptions.InvalidPasswordException;
 import exceptions.InvalidUserException;
 import models.User;
@@ -17,14 +17,15 @@ import views.RegistrationWindow;
 public class LoginController {
 
 	private LoginView view;
-
+	private LoginRepository repository;
+	
 	public LoginController(LoginView view) {
+		repository = new LoginRepository();
 		this.view = view;
 		addListeners();
 	}
 
-	private boolean validateCredentials(User user)
-			throws InvalidUserException, InvalidPasswordException {
+	private boolean validateCredentials(User user) {
 
 		view.resetErrorMessages();
 
@@ -39,15 +40,7 @@ public class LoginController {
 			view.showPasswordError("La contraseña es obligatoria");
 			valid = false;
 		}
-		;
-
-		if (!user.getEmail().trim().isEmpty() && !user.getEmail().trim().equals("b.lara@uabcs.mx")) {
-			throw new InvalidUserException("El correo no coincide.");
-		}
-
-		if (!user.getPassword().trim().isEmpty() && !user.getPassword().trim().equals("1234")) {
-			throw new InvalidPasswordException("La contraseña no coincide");
-		}
+		
 
 		return valid;
 	}
@@ -59,24 +52,21 @@ public class LoginController {
 
 	private void handleLogin() {
 		
-		User user = new User(
-			view.getEmail(),
-			view.getPassword()
-		); 
-		
-		System.out.println(user.getName());
-		
-		try {
-			if (validateCredentials(user)) {
-				JOptionPane.showMessageDialog(view.getWindow(), "Se inició la sesión", "Sesión iniciada",
-						JOptionPane.INFORMATION_MESSAGE);
-
-				new HomeController(new MainWindow());
-				view.getWindow().dispose();
-			}
-		} catch (InvalidUserException | InvalidPasswordException ex) {
-			view.showPasswordError("Credenciales Incorrectas");
+		if(!validateCredentials(new User(view.getEmail(), view.getPassword()))){
+			return;
 		}
+		
+		User user = repository.login(view.getEmail(), view.getPassword());
+		
+		if(user == null) {
+			view.showPasswordError("Credenciales incorrectas");
+			return;
+		}
+		
+		JOptionPane.showMessageDialog(view.getWindow(),  "Se inició la sesión", "Sesión iniciada", JOptionPane.INFORMATION_MESSAGE);
+		new HomeController(new MainWindow());
+		
+		view.getWindow().dispose();
 	}
 	
 	private void addListeners() {

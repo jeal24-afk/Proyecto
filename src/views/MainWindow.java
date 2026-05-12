@@ -47,11 +47,14 @@ public class MainWindow extends JFrame {
 			setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			
 			setMenu();
-	
 			createNavbar();
 			createViews();
-			UsersView  usuariosView = new UsersView();
-			add(usuariosView);
+			
+			new UserController(usersPanel);
+			//UsersView  usuariosView = new UsersView();
+			
+			//add(usuariosView);
+			//showView(USERS);
 			setVisible(true);
 			
 		}
@@ -62,6 +65,9 @@ public class MainWindow extends JFrame {
 		btnHome = new JButton("Inicio");
 		btnUsers = new JButton("Usuarios");
 		
+		btnHome.addActionListener(e -> showView(HOME));
+	    btnUsers.addActionListener(e -> showView(USERS));
+	    
 		navbar.add(btnHome);
 		navbar.add(btnUsers);
 		

@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class User {
 	
+	private int id;
 	private String name;
 	private String email;
 	private String description;
@@ -21,14 +22,35 @@ public class User {
 		this.password = password;
 	}
 	
+	public User(int id,String email, String password) {
+		this.id = id;
+		this.email = email;
+		this.password = password;
+	}
+	
 	public User(String name, String email, String description) {
-		super();
 		this.name = name;
 		this.email = email;
 		this.description = description;
 
 	}
+	
+	public User(int id,String name, String email, String description) {
+		this.id = id;
+		this.name = name;
+		this.email = email;
+		this.description = description;
 
+	}
+	
+	public int getId() {
+		return id;
+	}
+	
+	public void setId(int id) {
+		this.id = id;
+	}
+	
 	public String getName() {
 		return name;
 	}
@@ -69,27 +91,5 @@ public class User {
 		           email + "," +
 		           description ;
 	}
-	
-	public static User fromCsv(String userData) {
-		String data[] = userData.split(",");
-		
-		String name = data[0];
-		String email = data[1];
-	    String description = data[2];	 
-	    
-	    return new User(name, email, description);
-		
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 }

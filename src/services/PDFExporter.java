@@ -47,18 +47,18 @@ public class PDFExporter {
 				doc.add(img);
 			}
 
-			doc.add(new Paragraph("Reporte de Usuarios").setBold().setFontSize(12)
+			doc.add(new Paragraph("Reporte de Provedores").setBold().setFontSize(12)
 					.setTextAlignment(TextAlignment.CENTER));
 
 			doc.add(new Paragraph("").setMarginTop(30));
 
-			float[] columnsWidth = { 1, 4, 4, 3, 3 };
+			float[] columnsWidth = { 1, 4, 4 };
 
 			Table table = new Table(UnitValue.createPercentArray(columnsWidth)).useAllAvailableWidth();
 
 			PdfFont font = PdfFontFactory.createFont(StandardFonts.HELVETICA);
 
-			Cell cell = new Cell(1, 5).add(new Paragraph("Usuarios del sistema")).setFont(font).setFontSize(14)
+			Cell cell = new Cell(1, 3).add(new Paragraph("Provedores del sistema")).setFont(font).setFontSize(14)
 					.setFontColor(DeviceGray.WHITE).setBackgroundColor(new DeviceRgb(45, 111, 164))
 					.setTextAlignment(TextAlignment.CENTER);
 
@@ -74,13 +74,7 @@ public class PDFExporter {
 								.setBackgroundColor(new DeviceGray(0.80f)).add(new Paragraph("Nombre")),
 
 						new Cell().setTextAlignment(TextAlignment.CENTER).setBorderTop(new SolidBorder(1f))
-								.setBackgroundColor(new DeviceGray(0.80f)).add(new Paragraph("Email")),
-
-						new Cell().setTextAlignment(TextAlignment.CENTER).setBorderTop(new SolidBorder(1f))
-								.setBackgroundColor(new DeviceGray(0.80f)).add(new Paragraph("País")),
-
-						new Cell().setTextAlignment(TextAlignment.CENTER).setBorderTop(new SolidBorder(1f))
-								.setBackgroundColor(new DeviceGray(0.80f)).add(new Paragraph("Descripción")), };
+								.setBackgroundColor(new DeviceGray(0.80f)).add(new Paragraph("Email")),};
 
 				for (Cell celda : headerFooter) {
 					if (i == 0) {
@@ -101,10 +95,7 @@ public class PDFExporter {
                         .add(new Paragraph(u.getName())));
 
                 table.addCell(new Cell().setTextAlignment(TextAlignment.LEFT)
-                        .add(new Paragraph(u.getEmail())));
-
-                table.addCell(new Cell().setTextAlignment(TextAlignment.CENTER)
-                        .add(new Paragraph(u.getDescription())));
+                        .add(new Paragraph(u.getEmail())));       
 
                 indice++;
 			}

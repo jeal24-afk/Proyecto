@@ -22,7 +22,7 @@ import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 
 import components.TextPrompt;
-import lib.SpringUtilities;
+import util.SpringUtilities;
 
 public class LoginView extends JPanel {
 

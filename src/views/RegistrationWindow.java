@@ -35,8 +35,8 @@ import javax.swing.SwingConstants;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import util.AppFont;
-import util.Config;
 import components.ErrorLabel;
+import config.Config;
 
 public class RegistrationWindow extends JFrame {
 
