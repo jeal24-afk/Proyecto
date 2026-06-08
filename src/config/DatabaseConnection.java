@@ -3,6 +3,7 @@ package config;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.Properties;
 
 public class DatabaseConnection {
@@ -35,5 +36,15 @@ public class DatabaseConnection {
 		
 		return connection;
 	}
+	
+    public static void cerrar() {
+        try {
+            if (connection != null && !connection.isClosed()) {
+            	connection.close();
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al cerrar conexión: " + e.getMessage());
+        }
+    }
 	
 }

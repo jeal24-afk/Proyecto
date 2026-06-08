@@ -15,7 +15,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
-import models.User;
+import modelo.Usuario;
 
 public class UserRepository {
 
@@ -28,15 +28,15 @@ public class UserRepository {
 	private final ObjectMapper mapper = 
 			new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
 	
-	public void save(User user) throws IOException {
+	public void save(Usuario user) throws IOException {
 		
-		List<User> users = getUsers();
+		List<Usuario> users = getUsers();
 		users.add(user);
 		updateAll(users);
 		
 	}
 	
-	public List<User> getUsers() throws IOException {
+	public List<Usuario> getUsers() throws IOException {
 		
 		File file = new File(FILE);
 		
@@ -48,12 +48,12 @@ public class UserRepository {
 		
 		return mapper.readValue(
 			file, 
-			new TypeReference<List<User>>() {}
+			new TypeReference<List<Usuario>>() {}
 		);
 				
 	}
 	
-	public void updateAll(List<User> users) throws IOException {
+	public void updateAll(List<Usuario> users) throws IOException {
 		File file = new File(FILE);
 		file.getParentFile().mkdir();
 		
@@ -61,13 +61,13 @@ public class UserRepository {
 	}
 	
 	public void delete(int index) throws IOException {
-		List<User> users = getUsers();
+		List<Usuario> users = getUsers();
 		users.remove(index);
 		updateAll(users);
 	}
 	
-	public void update(int index, User updatedUser) throws IOException {
-		List<User> users = getUsers();
+	public void update(int index, Usuario updatedUser) throws IOException {
+		List<Usuario> users = getUsers();
 		users.set(index, updatedUser);
 		updateAll(users);
 	}

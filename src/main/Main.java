@@ -2,12 +2,11 @@ package main;
 
 import com.formdev.flatlaf.FlatLightLaf;
 
-import controllers.RegistrationController;
-import controllers.HomeController;
-import controllers.LoginController;
-import views.LoginView;
-import views.LoginWindow;
-import views.MainWindow;
+import controllers.LoginControlador;
+import views.CajeroVista;
+import views.LoginVista;
+
+
 public class Main {
 
 	public static void main(String[] args) {
@@ -16,13 +15,11 @@ public class Main {
 		
 		//MainWindow ventanita = new MainWindow();
 		//
-		LoginWindow ventanita = new LoginWindow();
-		LoginView view = ventanita.getLoginView();
-		new LoginController(view);
-        ventanita.add(view);
+        LoginVista loginVista = new LoginVista();
+        new LoginControlador(loginVista);
+        loginVista.setVisible(true);
         //
-		new HomeController(new MainWindow());
-        
+        //CajeroVista cajeroVista = new CajeroVista(admin);
         //ventanita.setVisible(true);
 
 	}

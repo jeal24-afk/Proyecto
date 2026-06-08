@@ -7,11 +7,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import config.DatabaseConnection;
-import models.User;
+import modelo.Usuario;
 
 public class LoginRepository {
 
-	public User login(String email, String password) {
+	public Usuario login(String email, String password) {
 		
 		/*String sql = "SELECT id, email, password FROM users WHERE email = '" 
 				+ email + "' AND password = '" + password + "'";*/
@@ -28,9 +28,9 @@ public class LoginRepository {
 			ResultSet rs = stmt.executeQuery();
 			
 			if(rs.next()) {
-				User user = new User();
-				user.setId(rs.getInt("id"));
-				user.setEmail(rs.getString("email"));
+				Usuario user = new Usuario();
+				user.setIdUsuario(rs.getInt("id"));
+				user.setUsuario(rs.getString("usuario"));
 				
 				return user;
 			}

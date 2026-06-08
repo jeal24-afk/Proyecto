@@ -25,11 +25,11 @@ import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.properties.TextAlignment;
 import com.itextpdf.layout.properties.UnitValue;
 
-import models.User;
+import modelo.Usuario;
 
 public class PDFExporter {
 
-	public void exportUsers(List<User> users, File file) throws IOException {
+	public void exportUsers(List<Usuario> users, File file) throws IOException {
 
 		try (PdfDocument pdfDoc = new PdfDocument(new PdfWriter(file));
 				Document doc = new Document(pdfDoc, PageSize.LETTER.rotate());) {
@@ -74,7 +74,7 @@ public class PDFExporter {
 								.setBackgroundColor(new DeviceGray(0.80f)).add(new Paragraph("Nombre")),
 
 						new Cell().setTextAlignment(TextAlignment.CENTER).setBorderTop(new SolidBorder(1f))
-								.setBackgroundColor(new DeviceGray(0.80f)).add(new Paragraph("Email")),};
+								.setBackgroundColor(new DeviceGray(0.80f)).add(new Paragraph("Apellido")),};
 
 				for (Cell celda : headerFooter) {
 					if (i == 0) {
@@ -87,15 +87,15 @@ public class PDFExporter {
 			
 			int indice = 1;
 			
-			for(User u : users) {
+			for(Usuario u : users) {
 				table.addCell(new Cell().setTextAlignment(TextAlignment.CENTER)
                         .add(new Paragraph(String.valueOf(indice))));
 
                 table.addCell(new Cell().setTextAlignment(TextAlignment.LEFT)
-                        .add(new Paragraph(u.getName())));
+                        .add(new Paragraph(u.getNombre())));
 
                 table.addCell(new Cell().setTextAlignment(TextAlignment.LEFT)
-                        .add(new Paragraph(u.getEmail())));       
+                        .add(new Paragraph(u.getApellido())));       
 
                 indice++;
 			}
